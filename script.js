@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   // Backend API Endpoint URL
 //   const API_URL = 'http://127.0.0.1:8000/predict';
-  const API_URL = 'https://mental-health-score-predictor-model-ml.onrender.com'; // Render URL for deployed Backend 
+  const API_URL = 'https://mental-health-score-predictor-model-ml.onrender.com/predict'; // Render URL for deployed Backend 
 
   // Element Selectors
   const form = document.getElementById('prediction-form');
