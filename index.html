@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mental Health Score Predictor</title>
+  <!-- Google Fonts & FontAwesome Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="app-container">
+    <header class="header">
+      <div class="logo">
+        <i class="fa-solid fa-brain"></i>
+      </div>
+      <h1>Mental Health Score Predictor</h1>
+      <p>Provide your basic academic and lifestyle details to receive an estimated mental health evaluation score powered by ML.</p>
+    </header>
+
+    <div id="error-banner" class="alert error-alert hidden">
+      <i class="fa-solid fa-triangle-exclamation"></i>
+      <span id="error-message">An error occurred while communicating with the server.</span>
+    </div>
+
+    <form id="prediction-form">
+      <div class="form-grid">
+        
+        <!-- Personal & Location Info -->
+        <div class="form-group">
+          <label for="age"><i class="fa-regular fa-user"></i> Age</label>
+          <input type="number" id="age" min="10" max="100" placeholder="e.g., 21" required />
+        </div>
+
+        <div class="form-group">
+          <label for="gender"><i class="fa-solid fa-venus-mars"></i> Gender</label>
+          <select id="gender" required>
+            <option value="" disabled selected>Select Gender</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="country"><i class="fa-solid fa-earth-americas"></i> Country</label>
+          <select id="country" required>
+            <option value="" disabled selected>Select Country</option>
+            <option value="India">India</option>
+            <option value="USA">USA</option>
+            <option value="Canada">Canada</option>
+            <option value="Australia">Australia</option>
+            <option value="UK">UK</option>
+            <option value="Germany">Germany</option>
+            <option value="Mexico">Mexico</option>
+            <option value="Turkey">Turkey</option>
+            <option value="France">France</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="academic_level"><i class="fa-solid fa-graduation-cap"></i> Academic Level</label>
+          <select id="academic_level" required>
+            <option value="" disabled selected>Select Level</option>
+            <option value="High School">High School</option>
+            <option value="Undergraduate">Undergraduate</option>
+            <option value="Graduate">Graduate</option>
+          </select>
+        </div>
+
+        <!-- Digital & Social Usage -->
+        <div class="form-group">
+          <label for="most_used_platform"><i class="fa-solid fa-mobile-screen"></i> Primary Social Platform</label>
+          <select id="most_used_platform" required>
+            <option value="" disabled selected>Select Platform</option>
+            <option value="Instagram">Instagram</option>
+            <option value="YouTube">YouTube</option>
+            <option value="WhatsApp">WhatsApp</option>
+            <option value="Facebook">Facebook</option>
+            <option value="LinkedIn">LinkedIn</option>
+            <option value="Twitter">Twitter</option>
+            <option value="Snapchat">Snapchat</option>
+            <option value="TikTok">TikTok</option>
+            <option value="LINE">LINE</option>
+            <option value="KakaoTalk">KakaoTalk</option>
+            <option value="VKontakte">VKontakte</option>
+            <option value="WeChat">WeChat</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="purpose_of_use"><i class="fa-solid fa-bullseye"></i> Primary Purpose of Use</label>
+          <select id="purpose_of_use" required>
+            <option value="" disabled selected>Select Purpose</option>
+            <option value="Entertainment">Entertainment</option>
+            <option value="Education">Education</option>
+            <option value="Networking">Networking</option>
+            <option value="News">News</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="avg_daily_usage_hours"><i class="fa-solid fa-clock"></i> Daily Social Usage (Hours)</label>
+          <input type="number" id="avg_daily_usage_hours" step="0.1" min="0" max="24" placeholder="e.g., 3.5" required />
+        </div>
+
+        <div class="form-group">
+          <label for="daily_unlocks"><i class="fa-solid fa-lock-open"></i> Phone Unlocks / Day</label>
+          <input type="number" id="daily_unlocks" min="0" placeholder="e.g., 60" required />
+        </div>
+
+        <!-- Lifestyle & Stress -->
+        <div class="form-group">
+          <label for="study_hours"><i class="fa-solid fa-book-open"></i> Daily Study (Hours)</label>
+          <input type="number" id="study_hours" step="0.1" min="0" max="24" placeholder="e.g., 6.0" required />
+        </div>
+
+        <div class="form-group">
+          <label for="physical_activity_hours"><i class="fa-solid fa-person-running"></i> Physical Activity (Hours/Day)</label>
+          <input type="number" id="physical_activity_hours" step="0.1" min="0" max="24" placeholder="e.g., 1.5" required />
+        </div>
+
+        <div class="form-group">
+          <label for="sleep_hours_per_night"><i class="fa-solid fa-bed"></i> Sleep Duration (Hours/Night)</label>
+          <input type="number" id="sleep_hours_per_night" step="0.1" min="0" max="24" placeholder="e.g., 7.5" required />
+        </div>
+
+        <div class="form-group">
+          <label for="stress_level"><i class="fa-solid fa-gauge-high"></i> Academic Stress Level</label>
+          <select id="stress_level" required>
+            <option value="" disabled selected>Select Stress Level</option>
+            <option value="Low">Low</option>
+            <option value="Medium">Medium</option>
+            <option value="High">High</option>
+            <option value="Very High">Very High</option>
+          </select>
+        </div>
+
+      </div>
+
+      <button type="submit" id="submit-btn" class="submit-btn">
+        <span id="btn-text"><i class="fa-solid fa-wand-magic-sparkles"></i> Predict Score</span>
+        <span id="btn-spinner" class="spinner hidden"></span>
+      </button>
+    </form>
+  </div>
+
+  <!-- Results Modal -->
+  <div id="results-modal" class="modal-overlay hidden">
+    <div class="modal-card">
+      <button id="close-modal" class="close-btn">&times;</button>
+      
+      <div class="modal-header">
+        <div id="badge-icon" class="status-badge-icon">
+          <i class="fa-solid fa-heart-pulse"></i>
+        </div>
+        <h2>Prediction Analysis</h2>
+      </div>
+
+      <div class="score-display">
+        <span class="score-label">Predicted Mental Health Score</span>
+        <div id="score-value" class="score-number">0.00</div>
+        <div class="score-scale">Scale ranges from 0.00 to 10.00</div>
+      </div>
+
+      <div id="status-badge" class="risk-badge">
+        Evaluating Risk...
+      </div>
+
+      <p id="risk-description" class="risk-description">
+        Based on your input parameters, your calculated score reflects your balance across sleep, academic stress, and daily usage habits.
+      </p>
+
+      <button id="modal-action-btn" class="modal-btn">Got It</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
